@@ -1,0 +1,17 @@
+.profile {
+    /* width: 45%; */
+}
+
+.profile-content {
+    margin: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.profile-img {
+    width: 100%;
+}
+
+.profile-description {
+    padding: 2px 10px;
+}
