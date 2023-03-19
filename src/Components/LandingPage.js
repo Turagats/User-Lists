@@ -2,24 +2,21 @@ import React from "react";
 import Profile from "./Profile";
 import { useState, useEffect } from "react";
 import "./LandingPage.css";
-
 export default function LandingPage() {
-  const [data, setData] = useState(null);
-  const [pageNumber, setPageNumber] = useState(20);
+  const [data, setData] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const handleScroll = (e) => {
     const bottom =
       e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
     if (bottom) {
-      setPageNumber(pageNumber + 20);
+      setPageNumber(pageNumber + 1);
     }
-
-    console.log("5");
   };
 
   useEffect(() => {
     fetch(
-      `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/1/${pageNumber}`
+      `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${pageNumber}/20}`
     )
       .then((response) => {
         if (!response.ok) {
@@ -27,41 +24,26 @@ export default function LandingPage() {
         }
         return response.json();
       })
-      .then((data) => {
-        const newData = { ...data };
-        setData(newData);
+      .then((data1) => {
+        const newData = { ...data1 };
+        setData((prevData) => [...prevData, newData.list]);
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
       });
   }, [pageNumber]);
-  console.log(data);
 
   return (
     <div className="landing-container">
       <div className="landing" onScroll={handleScroll}>
-        
-        {/* {data ? (
-          <div>
-            {data.list.map((item) => (
-              <div key={item.id}>
-                <h2>{item.title}</h2>
-                <p>{item.description}</p>
-              </div>
-            ))}
-          </div>
-        ) : (
-          "none"
-        )} */}
         {data ? (
           <div className="profile-container">
-            {data.list.map((item) => (
-              <Profile id={item.id} 
-              prefix={data.list[0].prefix}/>
-            ))}
+            {data.map((item) =>
+              item.map((insideItem) => <Profile item={insideItem} />)
+            )}
           </div>
         ) : (
-          "none"
+          ""
         )}
       </div>
     </div>

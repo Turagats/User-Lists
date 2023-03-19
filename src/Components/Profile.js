@@ -1,23 +1,26 @@
 import React from "react";
 import "./Profile.css";
+import { Link } from "react-router-dom";
 
 export default function Profile(props) {
-  console.log([props.item])
+
   return (
-    <div className="profile" id={props.id}>
-      <div className="profile-content">
-        <img
-          alt="profilePicture"
-          className="profile-img"
-          src="http://placeimg.com/640/480/animals"
-        />
-        <div className="profile-description">
-          <strong>
-            {props.prefix} {props.name} {props.lastName}
-          </strong>
+    <div className="profile" id={props.item.id}>
+      <Link className="link" to={`/user/${props.item.id}`}>
+        <div className="profile-content">
+          <img
+            alt="profilePicture"
+            className="profile-img"
+            src={props.item.imageUrl + "?v=" + props.item.id}
+          />
+          <div className="profile-description">
+            <strong>
+              {props.item.prefix} {props.item.name} {props.item.lastName}
+            </strong>
+          </div>
+          <div className="profile-description">{props.item.title}</div>
         </div>
-        <div className="profile-description">{props.title}</div>
-      </div>
+      </Link>
     </div>
   );
 }

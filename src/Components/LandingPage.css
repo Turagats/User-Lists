@@ -1,17 +1,17 @@
 .landing {
-  /* display: flex;
-  flex-direction: row; */
   height: 100vh;
   overflow: scroll;
-  /* width: 100vw; */
   max-width: 1200px;
   margin: 0 auto;
-
-  /* justify-content: space-between; */
-
 }
-.profile-container{
 
+.profile-container {
   display: grid;
   grid-template-columns: auto auto auto auto;
+    
+}
+
+.link {
+  color: black;
+  text-decoration: none;
 }
